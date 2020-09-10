@@ -19,19 +19,19 @@ cover:  "/assets/instacode.png"
 - location은 0 이상 (현재 대기목록에 있는 작업 수 - 1) 이하의 값을 가지며 대기목록의 가장 앞에 있으면 0, 두 번째에 있으면 1로 표현합니다.
 
 ### ...
- 예를들어 각 문서의 `priorities`가 `[2, 1, 3, 2]`이고 `location`이 1이라면 `location`은 인덱스를 가리키므로 우선순위가 1인 2번째 문서가 몇 번째로 출력되는지 반환한다.
+ 예를들어서 각 문서의 `priorities`가 `[2, 1, 3, 2]`이고 `location`이 1이라면
+ `location`은 인덱스를 우선순위가 1인 2번째 문서가 몇 번째로 출력되는지 반환하는거다.
 
  첫 번째 문서는 우선순위가 2고 뒤에 우선 순위가 더 높은 문서가 있으니 맨 뒤로 옮겨진다...
 
  `[1, 3, 2, 2]`
 
- 그 다음도 마찬가지이다.
+ 그 다음도 마찬가지
 
  `[3, 2, 2, 1]`
 
- 모든 과정이 끝나면 이렇게 우선순위 순서대로 출력되게 된다.
- 원하는 문서가 네번째로 출력됐으니 4를 리턴한다.
-
+ 모든 과정이 끝나면 이렇게 우선순위 순서대로 출력되게 된다능...
+ 원하는 문서가 네번째로 출력됐으니 리턴되는 값은 4일 거임.
 
 ### 코드
 
@@ -39,15 +39,31 @@ cover:  "/assets/instacode.png"
     class Solution {
       public int solution(int[] priorities, int location) {
           PriorityQueue<Integer> pri = new PriorityQueue<>();
+
+PriorityQueue는 우선순위 큐다.
+큐는 먼저 들어온 놈이 먼저나가는게 국룰인데 우선순위 큐는 들어온 순서는 상관없고
+우선순위가 높은 요소가 먼저 나간다.
+
+우선순위는 숫자가 작을 수록 높은거다. 근데 이 문제는 높은애가 숫자가 더 크니까 반대로 나가야한다.
+
           int answer = 0;
 
           for (int i = 0; i < priorities.length; i++){
               priorities[i] = 10 - priorities[i];
           }
 
+우선순위가 1부터 9까지라고 하니 10에서 빼면 우선순위 큐 규칙에 따라서 차례대로 나가겠지
+근데 굳이 이렇게 안 해도 된다고 함.
+
+    PriorityQueue<Integer> pri = new PriorityQueue<>(Collections.reverseOrder());
+
+이렇게 하면 우선순위가 반대로 된다고 한다.
+
           for(int priority : priorities) {
-              pri.offer(priority);
+              pri.add(priority);
           }
+
+`priorities`배열의 값을 우선순위 큐에 넣는다. 자동으로 정렬될 것이다.
 
           while(!pri.isEmpty()){
               for(int i = 0; i < priorities.length; i++) {
@@ -65,84 +81,10 @@ cover:  "/assets/instacode.png"
       }
     }
 
+마지막으로 우선순위 큐에 들어있는 값과 인풋배열에 들어있는 값을 차례대로 비교한다.
+우선순위가 높은애들부터 앞에 있으니까 맨 앞에 있는애를 `peek`해서 비교하고 같은애가 나오면 `poll`해서 방출한다.
+이러면 차례대로 나가게 된다. 그리고 한 놈 나갈때마다 `answer`값을 올린다.
+인풋 배열은 그대로 유지되니까 `i`가 `location`과 같을 때 큐의 맨 앞과 배열의 값이 같으면 정답인거다.
+while문은 빠져나와야 하니까 큐는 `clear`로 비워주고 끝낸다.
 
-
-### d
-
-You can use [highlight.js][highlight] to add syntax highlight code snippets:
-
-Use the [Liquid][liquid] `{% raw %}{% highlight <language> %}{% endraw %}` tag to add syntax highlighting to code snippets.
-
-For instance, this template...
-{% highlight html %}
-{% raw %}{% highlight javascript %}    
-function demo(string, times) {    
-  for (var i = 0; i < times; i++) {    
-    console.log(string);    
-  }    
-}    
-demo("hello, world!", 10);
-{% endhighlight %}{% endraw %}
-{% endhighlight %}
-
-...will come out looking like this:
-
-{% highlight javascript %}
-function demo(string, times) {
-  for (var i = 0; i < times; i++) {
-    console.log(string);
-  }
-}
-demo("hello, world!", 10);
-{% endhighlight %}
-
-Syntax highlighting is done using [highlight.js][highlight]. You can change the active theme in [head.html](https://github.com/bencentra/centrarium/blob/2dcd73d09e104c3798202b0e14c1db9fa6e77bc7/_includes/head.html#L15).
-
-### Blockquotes
-
-> "Blockquotes will be indented, italicized, and given a subdued light gray font. These are good for side comments not directly related to your content, or long quotations from external sources." - Some Smart Guy
-
-### Images
-
-Lightbox has been enabled for images. To create the link that'll launch the lightbox, add <code>data-lightbox</code> and <code>data-title</code> attributes to an <code>&lt;a&gt;</code> tag around your <code>&lt;img&gt;</code> tag. The result is:
-
-<a href="//bencentra.com/assets/images/falcon9_large.jpg" data-lightbox="falcon9-large" data-title="Check out the Falcon 9 from SpaceX">
-  <img src="//bencentra.com/assets/images/falcon9_small.jpg" title="Check out the Falcon 9 from SpaceX">
-</a>
-
-For more information, check out the [Lightbox][lightbox] website.
-
-### Tooltips
-
-With Tippy.js, you can add tooltips to your text with a little bit of HTML and JavaScript. First, create the tooltip trigger: `<span class="tooltip" id="someId">trigger</span>`. Then in a `<script>` tag at the bottom of your page, add some code to initialize the tooltip when the document is ready: `window.tooltips.push(['#someId', { content: "Content" }])`
-
-See the [Tippy.js docs](https://atomiks.github.io/tippyjs/) for additional configuration that you can provide for your tooltips.
-
-You can also use a Liquid `include` to import tooltip text or HTML from an external file:
-
-```
-window.tooltips.push(['#someOtherId', { content: "{% raw %}{% include tooltips/example.html %}{% endraw %}" }])
-```
-
-To modify the styles for tooltip triggers, find the `.tooltip` class in `_layout.scss`.
-
-Here's an <span class="tooltip" id="someId">example tooltip</span>, and <span class="tooltip" id="someOtherId">here's another</span>.
-
-<br/>
-{% include page_divider.html %}
-
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
-[highlight]:   https://highlightjs.org/
-[lightbox]:    http://lokeshdhakar.com/projects/lightbox2/
-[jekyll-archive]: https://github.com/jekyll/jekyll-archives
-[liquid]: https://github.com/Shopify/liquid/wiki/Liquid-for-Designers
-
-<script>
-window.tooltips = window.tooltips || []
-window.tooltips.push(['#someId', { content: "This is the text of the tooltip!" }])
-window.tooltips.push(['#someOtherId', { content: "{% include tooltips/example.html %}", placement: "right" }])
-</script>
+딱 문제 보면 뭔가 쉬워보이고 큐 안 써도 좀 어떻게 해보면 될것처럼 생겼는데 저 간단한 생각이 잘 안 난다. 아직 좆밥인걸 실감한다.
