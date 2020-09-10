@@ -17,7 +17,7 @@ description: Coding
 baseurl: ""
 url: "https://csehun321.github.io/"
 cover: "/assets/header_image.jpg"
-logo: "/assets/yomi.jpg"
+logo: "/assets/yomi.png"
 
 # Build settings
 markdown: kramdown
