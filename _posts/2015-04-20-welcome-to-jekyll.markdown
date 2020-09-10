@@ -7,70 +7,67 @@ categories: 프로그래머스
 tags:	java, queue
 cover:  "/assets/instacode.png"
 ---
-###문제 설명
+### 문제 설명
 
-1. 인쇄 대기목록의 가장 앞에 있는 문서(J)를 대기목록에서 꺼냅니다.
-2. 나머지 인쇄 대기목록에서 J보다 중요도가 높은 문서가 한 개라도 존재하면 J를 대기목록의 가장 마지막에 넣습니다.
-3. 그렇지 않으면 J를 인쇄합니다.
+- 인쇄 대기목록의 가장 앞에 있는 문서(J)를 대기목록에서 꺼냅니다.
+- 나머지 인쇄 대기목록에서 J보다 중요도가 높은 문서가 한 개라도 존재하면 J를 대기목록의 가장 마지막에 넣습니다.
+- 그렇지 않으면 J를 인쇄합니다.
 
-###제한사항
-1. 현재 대기목록에는 1개 이상 100개 이하의 문서가 있습니다.
-2. 인쇄 작업의 중요도는 1~9로 표현하며 숫자가 클수록 중요하다는 뜻입니다.
-3. location은 0 이상 (현재 대기목록에 있는 작업 수 - 1) 이하의 값을 가지며 대기목록의 가장 앞에 있으면 0, 두 번째에 있으면 1로 표현합니다.
+### 제한사항
+- 현재 대기목록에는 1개 이상 100개 이하의 문서가 있습니다.
+- 인쇄 작업의 중요도는 1~9로 표현하며 숫자가 클수록 중요하다는 뜻입니다.
+- location은 0 이상 (현재 대기목록에 있는 작업 수 - 1) 이하의 값을 가지며 대기목록의 가장 앞에 있으면 0, 두 번째에 있으면 1로 표현합니다.
 
-###...
- 예를들어 각 문서의 'priorities'가 '[2, 1, 3, 2]'이고 'location'이 1이라면 'location'은 인덱스를 가리키므로 우선순위가 1인 2번째 문서가 몇 번째로 출력되는지 반환한다.
+### ...
+ 예를들어 각 문서의 `priorities`가 `[2, 1, 3, 2]`이고 `location`이 1이라면 `location`은 인덱스를 가리키므로 우선순위가 1인 2번째 문서가 몇 번째로 출력되는지 반환한다.
 
  첫 번째 문서는 우선순위가 2고 뒤에 우선 순위가 더 높은 문서가 있으니 맨 뒤로 옮겨진다...
 
- '[1, 3, 2, 2]'
+ `[1, 3, 2, 2]`
 
  그 다음도 마찬가지이다.
 
- '[3, 2, 2, 1]'
+ `[3, 2, 2, 1]`
 
  모든 과정이 끝나면 이렇게 우선순위 순서대로 출력되게 된다.
  원하는 문서가 네번째로 출력됐으니 4를 리턴한다.
 
 
- ###코드
+### 코드
 
- {% highlight java %}    
- import java.util.*;
- class Solution {
-    public int solution(int[] priorities, int location) {
-        int answer = 0;
+    import java.util.*;
+    class Solution {
+      public int solution(int[] priorities, int location) {
+          PriorityQueue<Integer> pri = new PriorityQueue<>();
+          int answer = 0;
 
-        PriorityQueue<Integer> pri = new PriorityQueue<>();
+          for (int i = 0; i < priorities.length; i++){
+              priorities[i] = 10 - priorities[i];
+          }
 
-        for (int i = 0; i < priorities.length; i++){
-            priorities[i] = 10 - priorities[i];
-        }
+          for(int priority : priorities) {
+              pri.offer(priority);
+          }
 
-        for(int priority : priorities) {
-            pri.offer(priority);
-        }
-
-        while(!pri.isEmpty()){
-            for(int i = 0; i < priorities.length; i++) {
-                if(pri.peek()==priorities[i]) {
-                    pri.poll();
-                    answer++;
-                    if(location == i) {
-                        pri.clear();
-                        break;
-                    }
-                }
-            }
-        }
-
-        return answer;
+          while(!pri.isEmpty()){
+              for(int i = 0; i < priorities.length; i++) {
+                  if(pri.peek()==priorities[i]) {
+                      pri.poll();
+                      answer++;
+                      if(location == i) {
+                          pri.clear();
+                          break;
+                      }
+                  }
+              }
+          }
+          return answer;
+      }
     }
- }
- {% endhighlight %}
 
- 
-### Code Snippets
+
+
+### d
 
 You can use [highlight.js][highlight] to add syntax highlight code snippets:
 
