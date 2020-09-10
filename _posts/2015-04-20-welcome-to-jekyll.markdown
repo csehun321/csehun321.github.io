@@ -1,27 +1,75 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2015-04-20 08:43:59
-author: Ben Centra
-categories: Jekyll
-tags:	jekyll welcome
+title:  "코딩테스트 연습 <스택/큐> -프린터"
+date:   2020-09-20 18:37:00
+author: csehun321
+categories: 프로그래머스
+tags:	java, queue
 cover:  "/assets/instacode.png"
 ---
+###문제 설명
 
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+1. 인쇄 대기목록의 가장 앞에 있는 문서(J)를 대기목록에서 꺼냅니다.
+2. 나머지 인쇄 대기목록에서 J보다 중요도가 높은 문서가 한 개라도 존재하면 J를 대기목록의 가장 마지막에 넣습니다.
+3. 그렇지 않으면 J를 인쇄합니다.
 
-## Adding New Posts
+###제한사항
+1. 현재 대기목록에는 1개 이상 100개 이하의 문서가 있습니다.
+2. 인쇄 작업의 중요도는 1~9로 표현하며 숫자가 클수록 중요하다는 뜻입니다.
+3. location은 0 이상 (현재 대기목록에 있는 작업 수 - 1) 이하의 값을 가지며 대기목록의 가장 앞에 있으면 0, 두 번째에 있으면 1로 표현합니다.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+###...
+ 예를들어 각 문서의 'priorities'가 '[2, 1, 3, 2]'이고 'location'이 1이라면 'location'은 인덱스를 가리키므로 우선순위가 1인 2번째 문서가 몇 번째로 출력되는지 반환한다.
 
-### Tags and Categories
+ 첫 번째 문서는 우선순위가 2고 뒤에 우선 순위가 더 높은 문서가 있으니 맨 뒤로 옮겨진다...
 
-If you list one or more categories or tags in the front matter of your post, they will be included with the post on the page as links. Clicking the link will bring you to an auto-generated archive page for the category or tag, created using the [jekyll-archive][jekyll-archive] gem.
+ '[1, 3, 2, 2]'
 
-### Cover Images
+ 그 다음도 마찬가지이다.
 
-To add a cover image to your post, set the "cover" property in the front matter with the relative URL of the image (i.e. <code>cover: "/assets/cover_image.jpg"</code>).
+ '[3, 2, 2, 1]'
 
+ 모든 과정이 끝나면 이렇게 우선순위 순서대로 출력되게 된다.
+ 원하는 문서가 네번째로 출력됐으니 4를 리턴한다.
+
+
+ ###코드
+
+ {% highlight java %}    
+ import java.util.*;
+ class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+
+        PriorityQueue<Integer> pri = new PriorityQueue<>();
+
+        for (int i = 0; i < priorities.length; i++){
+            priorities[i] = 10 - priorities[i];
+        }
+
+        for(int priority : priorities) {
+            pri.offer(priority);
+        }
+
+        while(!pri.isEmpty()){
+            for(int i = 0; i < priorities.length; i++) {
+                if(pri.peek()==priorities[i]) {
+                    pri.poll();
+                    answer++;
+                    if(location == i) {
+                        pri.clear();
+                        break;
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
+ }
+ {% endhighlight %}
+
+ 
 ### Code Snippets
 
 You can use [highlight.js][highlight] to add syntax highlight code snippets:
@@ -73,7 +121,7 @@ With Tippy.js, you can add tooltips to your text with a little bit of HTML and J
 
 See the [Tippy.js docs](https://atomiks.github.io/tippyjs/) for additional configuration that you can provide for your tooltips.
 
-You can also use a Liquid `include` to import tooltip text or HTML from an external file: 
+You can also use a Liquid `include` to import tooltip text or HTML from an external file:
 
 ```
 window.tooltips.push(['#someOtherId', { content: "{% raw %}{% include tooltips/example.html %}{% endraw %}" }])
