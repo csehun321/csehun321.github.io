@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "안녕하세요 !"
+summary: 테스트 포스팅
+author: sehun
+date: '2020-09-10'
+category: java
+thumbnail: /assets/yomi.png
+comments: true
+tags: [coding test, programmers, java, c++]
+---
