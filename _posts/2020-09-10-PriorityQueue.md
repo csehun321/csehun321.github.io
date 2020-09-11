@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "코딩테스트 연습 <큐> -프린터"
-date:   2020-09-20 18:37:00
+title:  "코딩테스트 연습 <큐/스택> -프린터"
+date:   2020-09-10 18:37:00
 author: csehun321
 categories: 프로그래머스
 tags:	java, queue
