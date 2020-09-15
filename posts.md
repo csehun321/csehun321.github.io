@@ -15,7 +15,7 @@ main_nav: true
   {% endfor %}
   <ul class="posts-list">
   {% for post in site.categories[cat] %}
-    <li><strong><a href="{{ post.url | prepend: site.baseurl }}"escapeXml="false" />{{ post.title }}</a></strong><span class="post-date"escapeXml="false" />- {{ post.date | date_to_long_string }}</span> </li>
+    <li><strong><a href="{{ post.url | prepend: site.baseurl }}"escapeXml="false">{{ post.title }}</a></strong><span class="post-date"escapeXml="false">- {{ post.date | date_to_long_string }}</span> </li>
   {% endfor %}
    </ul>
   {% if forloop.last == false %}<hr>{% endif %}
