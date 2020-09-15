@@ -8,7 +8,6 @@ tags:	java, queue
 cover:  "/assets/instacode.png"
 ---
 ### 문제 설명
-
 - 인쇄 대기목록의 가장 앞에 있는 문서(J)를 대기목록에서 꺼냅니다.
 - 나머지 인쇄 대기목록에서 J보다 중요도가 높은 문서가 한 개라도 존재하면 J를 대기목록의 가장 마지막에 넣습니다.
 - 그렇지 않으면 J를 인쇄합니다.
@@ -34,7 +33,6 @@ cover:  "/assets/instacode.png"
  원하는 문서가 네번째로 출력됐으니 리턴되는 값은 4일 거임.
 
 ### 코드
-
     import java.util.*;
     class Solution {
       public int solution(int[] priorities, int location) {

@@ -7,4 +7,4 @@ main_nav: true
 
 ![alt text]({{ site.baseurl }}/assets/yomi.png "Profile Picture"){:.profile}
 
-하루에 한 두개씩 풀어서 올리자!
+- 하루에 한 두개씩 풀어서 올리자!
