@@ -81,14 +81,14 @@ social:
     username: TheBenCentra
     url: https://twitter.com/TheBenCentra
     desc: Follow me on Twitter
-    share: flase
+    share: false
 
   - name: Facebook
     icon: facebook
     username: thebencentra
     url: ""
     desc: Friend me on Facebook
-    share: flase
+    share: false
 
   - name: GitHub
     icon: github
@@ -109,7 +109,7 @@ social:
     username: ""
     url: ""
     desc: Add me to your Circles
-    share: flase
+    share: false
 
   - name: YouTube
     icon: youtube
@@ -123,7 +123,7 @@ social:
     username: "best_new_old"
     url: ""
     desc: Follow me on Instagram
-    share: ture
+    share: true
 
   - name: Pinterest
     icon: pinterest
@@ -179,7 +179,7 @@ social:
     username: ""
     url: ""
     desc: Share to Reddit
-    share: flase
+    share: false
 
   - name: "Hacker News"
     icon: hacker-news
